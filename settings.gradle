@@ -1,0 +1,4 @@
+rootProject.name = 'project'
+include 'api-tests'
+include 'api-tests'
+
