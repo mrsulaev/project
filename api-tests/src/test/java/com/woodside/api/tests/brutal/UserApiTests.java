@@ -31,7 +31,7 @@ public class UserApiTests {
                 .then()
                 .assertThat()
                 .statusCode(200)
-                .body("id", not(not(isEmptyOrNullString())));
+                .body("id", not(isEmptyOrNullString()));
 
         //Then
 
