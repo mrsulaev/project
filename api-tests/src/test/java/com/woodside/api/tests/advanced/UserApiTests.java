@@ -19,18 +19,18 @@ public class UserApiTests {
 
     @BeforeAll
     static void setUp() {
-        RestAssured.baseURI = "";
+        RestAssured.port = 80;
     }
-
 
     @Test
     void testCanRegisterAsValidUser() {
         //Given
         User user = new User()
-                .setPassword("test")
-                .setEmail("set")
-                .setUsername("test");
-
+                .setLastName("123")
+                .setFirstName("123")
+                .setUsername("123123")
+                .setEmail("12321")
+                .setPassword("1221");
         //When
         ApiResponse response = userApiService.registerUser(user);
 
@@ -44,17 +44,17 @@ public class UserApiTests {
     void testCanNotRegisterAsValidUser() {
         //Given
         User user = new User()
-                .setPassword("test")
-                .setEmail("set")
-                .setUsername("test");
+                .setLastName("12232323233")
+                .setFirstName("122323233")
+                .setUsername("12312231233")
+                .setEmail("123232321")
+                .setPassword("1222323231");
 
         //When
         ApiResponse response = userApiService.registerUser(user);
 
         //Then
         response.shouldHave(statusCode(500));
-
-        response.shouldHave(bodyField("id", isEmptyOrNullString()));
 
     }
 }

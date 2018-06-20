@@ -16,7 +16,7 @@ public class UserApiServiceAdvanced {
     public ApiResponse registerUser(User user) {
         Response response =  given().body(user)
                 .when()
-                .post("register")
+                .post( "register")
                 .then().extract().response();
         return new ApiResponse(response);
     }

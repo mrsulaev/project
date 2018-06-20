@@ -19,7 +19,7 @@ public class UserApiTests {
 
     @BeforeAll
     static void setUp() {
-        RestAssured.baseURI = "";
+        RestAssured.port = 80;
     }
 
 

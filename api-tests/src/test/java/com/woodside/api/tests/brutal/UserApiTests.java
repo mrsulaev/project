@@ -7,14 +7,13 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 
-import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.hamcrest.Matchers.not;
 
 public class UserApiTests {
     @BeforeAll
     static void setUp() {
-        RestAssured.baseURI = "";
+        RestAssured.port = 80;
     }
 
 
@@ -27,11 +26,8 @@ public class UserApiTests {
                 RestAssured.given()
                 .body(user)
                 .when()
-                .post("register")
-                .then()
-                .assertThat()
-                .statusCode(200)
-                .body("id", not(isEmptyOrNullString()));
+                .post().then()
+                        .assertThat().body("id", not(isEmptyOrNullString()));
 
         //Then
 
