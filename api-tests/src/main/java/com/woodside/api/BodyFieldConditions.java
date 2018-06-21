@@ -1,5 +1,7 @@
 package com.woodside.api;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import org.hamcrest.Matcher;
 
