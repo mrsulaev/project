@@ -1,14 +1,12 @@
 package com.woodside.api.tests.advanced;
 
 
-import com.sun.org.glassfish.gmbal.Description;
 import com.woodside.api.ApiResponse;
 import com.woodside.api.entity.User;
 import com.woodside.api.service.UserApiServiceAdvanced;
-import io.qameta.allure.Epic;
-import io.qameta.allure.Feature;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static com.woodside.api.Conditions.bodyField;
@@ -17,8 +15,6 @@ import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.hamcrest.Matchers.not;
 
 
-@Epic("Allure examples")
-@Feature("Junit 5 support")
 public class UserApiTests {
 
     private UserApiServiceAdvanced userApiService = new UserApiServiceAdvanced();
@@ -29,7 +25,7 @@ public class UserApiTests {
     }
 
     @Test
-    @Description("Try register new user")
+    @DisplayName("Try to register new user")
     void testCanRegisterAsValidUser() {
         //Given
         User user = new User()
@@ -48,6 +44,7 @@ public class UserApiTests {
     }
 
     @Test
+    @DisplayName("Try to register not uniq user")
     void testCanNotRegisterAsValidUser() {
         //Given
         User user = new User()

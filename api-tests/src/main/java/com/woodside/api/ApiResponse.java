@@ -1,19 +1,18 @@
 package com.woodside.api;
 
+import io.qameta.allure.Step;
 import io.restassured.response.Response;
-import org.hamcrest.Matcher;
-import org.hamcrest.Matchers;
 
 public class ApiResponse {
 
     private Response response;
 
     public ApiResponse(Response response) {
-        this.response= response;
+        this.response = response;
     }
 
-
-    public void shouldHave(Condition condition){
+    @Step
+    public void shouldHave(Condition condition) {
         condition.check(response);
     }
 

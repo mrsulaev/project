@@ -15,12 +15,13 @@ public class UserApiServiceAdvanced {
 
     @Step("Register user")
     public ApiResponse registerUser(User user) {
-        Response response =  given().body(user)
+        Response response =  given()
+                .log().body()
+                .body(user)
                 .when()
                 .post( "register")
                 .then()
-                .log()
-                .ifError()
+                .log().ifError()
                 .extract().response();
         return new ApiResponse(response);
     }
