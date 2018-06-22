@@ -15,6 +15,8 @@ ext {
     restAssuredVersion = '3.1.0'
     jacksonVersion = '2.9.5'
     allureversion = '2.6.0'
+    hamcrestVersion = '1.3'
+    slf4jversion = '1.7.25'
 }
 
 dependencies {
@@ -23,11 +25,10 @@ dependencies {
     compile group: 'io.qameta.allure', name: 'allure-junit5', version: "$allureversion"
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVerion")
-
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVerion")
-    testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
-    testCompile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
 
+    testCompile "org.hamcrest:hamcrest-all:$hamcrestVersion"
+    testCompile "org.slf4j:slf4j-simple:$slf4jversion"
 }
 
 allure {
