@@ -37,7 +37,7 @@ public class UserApiTests {
         //When
         ApiResponse response = userApiService.registerUser(user);
 
-        //Thend
+        //Then
         response.shouldHave(statusCode(200));
         response.shouldHave(bodyField("id", not(isEmptyOrNullString())));
 

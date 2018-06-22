@@ -29,3 +29,4 @@ api-tests/build
 build/
 /api-tests/allure-results
 /api-tests/out
+/.allure/
