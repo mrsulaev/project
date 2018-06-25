@@ -3,25 +3,43 @@ package com.woodside.api.service;
 import com.woodside.api.ApiResponse;
 import com.woodside.api.entity.User;
 import io.qameta.allure.Step;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
+import io.restassured.filter.Filter;
+import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static io.restassured.http.ContentType.JSON;
+
+@lombok.extern.slf4j.Slf4j
 public class UserApiServiceAdvanced {
 
-    private RequestSpecification given(){
-        return RestAssured.given();
+    private RequestSpecification given() {
+        List<Filter> filters = new ArrayList<>();
+        if (Boolean.valueOf(System.getProperty("enablelogging", "false"))) {
+            filters.add(new RequestLoggingFilter());
+            filters.add(new RequestLoggingFilter());
+        }
+
+        filters.add(new AllureRestAssured());
+
+        return RestAssured.given()
+                .contentType(JSON)
+                .filters(filters);
     }
 
-    @Step("Register user")
     public ApiResponse registerUser(User user) {
-        Response response =  given()
-                .log().body()
+        log.info("Request header {}", user);
+
+        Response response = given()
                 .body(user)
                 .when()
-                .post( "register")
+                .post("register")
                 .then()
-                .log().ifError()
                 .extract().response();
         return new ApiResponse(response);
     }

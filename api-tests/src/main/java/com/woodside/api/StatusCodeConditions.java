@@ -1,6 +1,5 @@
 package com.woodside.api;
 
-import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -21,6 +20,6 @@ public class StatusCodeConditions extends Condition {
 
     @Override
     public String toString() {
-        return "Status{"+ statusCode +"}";
+        return "Status{" + statusCode + "}";
     }
 }

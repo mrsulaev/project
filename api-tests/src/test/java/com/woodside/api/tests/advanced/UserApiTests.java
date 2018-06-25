@@ -10,7 +10,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,7 +20,6 @@ import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.hamcrest.Matchers.not;
 
 
-@DisplayName("UserApi Tests")
 public class UserApiTests {
 
     private UserApiServiceAdvanced userApiService = new UserApiServiceAdvanced();
@@ -38,17 +36,14 @@ public class UserApiTests {
     }
 
     @Test
-    @DisplayName("Try to register new user")
-    @ParameterizedTest()
-    @MethodSource(value = "user")
-    void testCanRegisterAsValidUser(String lastName, String firstName, String userName, String email, String pwd) {
+    void testCanRegisterAsValidUser() {
         //Given
         User user = new User()
-                .setLastName(lastName)
-                .setFirstName(firstName)
-                .setUsername(userName)
-                .setEmail(email)
-                .setPassword(pwd);
+                .setLastName("123123123")
+                .setFirstName("123123213")
+                .setPassword("test")
+                .setEmail("set")
+                .setUsername("test");
         //When
         ApiResponse response = userApiService.registerUser(user);
 
@@ -58,16 +53,17 @@ public class UserApiTests {
 
     }
 
-    @Test
+    @ParameterizedTest()
     @DisplayName("Try to register not uniq user")
-    void testCanNotRegisterAsValidUser() {
+    @MethodSource(value = "user")
+    void testCanNotRegisterAsValidUser(String lastName, String firstName, String userName, String email, String pwd) {
         //Given
         User user = new User()
-                .setLastName("12232323233")
-                .setFirstName("122323233")
-                .setUsername("12312231233")
-                .setEmail("123232321")
-                .setPassword("1222323231");
+                .setLastName(lastName)
+                .setFirstName(firstName)
+                .setUsername(userName)
+                .setEmail(email)
+                .setPassword(pwd);
 
         //When
         ApiResponse response = userApiService.registerUser(user);

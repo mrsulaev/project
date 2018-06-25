@@ -1,7 +1,10 @@
 package com.woodside.api.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import javax.annotation.Generated;
@@ -12,20 +15,20 @@ import javax.annotation.Generated;
 @ToString
 @Accessors(chain = true)
 @Generated("com.robohorse.robopojogenerator")
-public class User{
+public class User {
 
-	@JsonProperty("firstName")
-	private String firstName;
+    @JsonProperty("firstName")
+    private String firstName;
 
-	@JsonProperty("lastName")
-	private String lastName;
+    @JsonProperty("lastName")
+    private String lastName;
 
-	@JsonProperty("password")
-	private String password;
+    @JsonProperty("password")
+    private String password;
 
-	@JsonProperty("email")
-	private String email;
+    @JsonProperty("email")
+    private String email;
 
-	@JsonProperty("username")
-	private String username;
+    @JsonProperty("username")
+    private String username;
 }

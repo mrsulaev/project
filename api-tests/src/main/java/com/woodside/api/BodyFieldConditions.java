@@ -1,13 +1,9 @@
 package com.woodside.api;
 
-import io.qameta.allure.Description;
-import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import org.hamcrest.Matcher;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.isEmptyOrNullString;
-import static org.hamcrest.Matchers.not;
 
 public class BodyFieldConditions extends Condition {
     private String jsonPath;

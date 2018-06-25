@@ -5,11 +5,9 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
-import static org.hamcrest.Matchers.not;
-
 public class UserApiService {
 
-    private RequestSpecification given(){
+    private RequestSpecification given() {
         return RestAssured.given();
     }
 
