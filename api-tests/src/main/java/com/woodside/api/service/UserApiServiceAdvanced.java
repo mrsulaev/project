@@ -32,6 +32,7 @@ public class UserApiServiceAdvanced {
                 .filters(filters);
     }
 
+    @Step("Register user")
     public ApiResponse registerUser(User user) {
         log.info("Request header {}", user);
 

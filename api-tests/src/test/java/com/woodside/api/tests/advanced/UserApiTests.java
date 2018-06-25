@@ -41,9 +41,9 @@ public class UserApiTests {
         User user = new User()
                 .setLastName("123123123")
                 .setFirstName("123123213")
-                .setPassword("test")
-                .setEmail("set")
-                .setUsername("test");
+                .setPassword("test1")
+                .setEmail("set1")
+                .setUsername("test1");
         //When
         ApiResponse response = userApiService.registerUser(user);
 

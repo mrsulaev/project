@@ -9,6 +9,14 @@ public class BodyFieldConditions extends Condition {
     private String jsonPath;
     private Matcher matcher;
 
+    @Override
+    public String toString() {
+        return "BodyFieldConditions{" +
+                "jsonPath='" + jsonPath + '\'' +
+                ", matcher=" + matcher +
+                '}';
+    }
+
     public BodyFieldConditions(String jsonPath, Matcher matcher) {
         this.jsonPath = jsonPath;
         this.matcher = matcher;
