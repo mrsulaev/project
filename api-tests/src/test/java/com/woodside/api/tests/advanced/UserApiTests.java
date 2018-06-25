@@ -8,6 +8,12 @@ import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.Arrays;
+import java.util.Collection;
 
 import static com.woodside.api.Conditions.bodyField;
 import static com.woodside.api.Conditions.statusCode;
@@ -15,9 +21,16 @@ import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.hamcrest.Matchers.not;
 
 
+@DisplayName("UserApi Tests")
 public class UserApiTests {
 
     private UserApiServiceAdvanced userApiService = new UserApiServiceAdvanced();
+
+    static Collection<Object[]> user() {
+        return Arrays.asList(new Object[][]{
+                {"testLastName", "testFirstName", "testUsername", "test@email.com", "tespwd"}
+        });
+    }
 
     @BeforeAll
     static void setUp() {
@@ -26,14 +39,16 @@ public class UserApiTests {
 
     @Test
     @DisplayName("Try to register new user")
-    void testCanRegisterAsValidUser() {
+    @ParameterizedTest()
+    @MethodSource(value = "user")
+    void testCanRegisterAsValidUser(String lastName, String firstName, String userName, String email, String pwd) {
         //Given
         User user = new User()
-                .setLastName("123")
-                .setFirstName("123")
-                .setUsername("123123")
-                .setEmail("12321")
-                .setPassword("1221");
+                .setLastName(lastName)
+                .setFirstName(firstName)
+                .setUsername(userName)
+                .setEmail(email)
+                .setPassword(pwd);
         //When
         ApiResponse response = userApiService.registerUser(user);
 
