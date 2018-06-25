@@ -24,8 +24,6 @@ public class BodyFieldConditions extends Condition {
 
     @Override
     public void check(Response response) {
-        String s = response.body().jsonPath().get(jsonPath).toString();
-
-        assertThat(s, matcher);
-    }
+        assertThat(response.body().jsonPath().get(jsonPath).toString(), matcher);
+        }
 }
