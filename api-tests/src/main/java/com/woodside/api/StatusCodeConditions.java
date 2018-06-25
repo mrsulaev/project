@@ -1,6 +1,5 @@
 package com.woodside.api;
 
-import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
 import static org.hamcrest.CoreMatchers.equalTo;

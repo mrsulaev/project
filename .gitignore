@@ -31,3 +31,4 @@ build/
 /api-tests/out
 /.allure/
 /.gradle
+/gradle
