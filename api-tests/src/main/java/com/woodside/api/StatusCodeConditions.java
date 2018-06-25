@@ -21,6 +21,6 @@ public class StatusCodeConditions extends Condition {
 
     @Override
     public String toString() {
-        return "Status{"+ statusCode +"}";
+        return "Status{" + statusCode + "}";
     }
 }

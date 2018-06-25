@@ -30,4 +30,3 @@ build/
 /api-tests/allure-results
 /api-tests/out
 /.allure/
-.gitignore
