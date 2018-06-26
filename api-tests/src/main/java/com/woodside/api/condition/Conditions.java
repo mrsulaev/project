@@ -1,4 +1,4 @@
-package com.woodside.api;
+package com.woodside.api.condition;
 
 import org.hamcrest.Matcher;
 

@@ -6,7 +6,6 @@ import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-
 import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.hamcrest.Matchers.not;
 
@@ -14,6 +13,7 @@ public class UserApiTests {
     @BeforeAll
     static void setUp() {
         RestAssured.port = 80;
+        RestAssured.baseURI = "http://localhost/";
     }
 
 
@@ -23,11 +23,13 @@ public class UserApiTests {
         User user = new User().setPassword("test").setEmail("set").setUsername("test");
 
         //When
-                RestAssured.given()
+
+        RestAssured.given()
                 .body(user)
                 .when()
-                .post().then()
-                        .assertThat().body("id", not(isEmptyOrNullString()));
+                .post("register")
+                .then()
+                .assertThat().body("id", not(isEmptyOrNullString()));
 
         //Then
 

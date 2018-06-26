@@ -1,5 +1,6 @@
-package com.woodside.api;
+package com.woodside.api.response;
 
+import com.woodside.api.condition.Condition;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
@@ -19,4 +20,11 @@ public class ApiResponse {
         condition.check(response);
     }
 
+    public <T> T as(Class<T> aClass){
+        return response.as(aClass);
+    }
+
+    public String getBodyField(String jsonPath){
+        return response.getBody().jsonPath().get(jsonPath).toString();
+    }
 }

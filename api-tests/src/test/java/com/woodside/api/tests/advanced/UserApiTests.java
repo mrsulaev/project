@@ -1,10 +1,11 @@
 package com.woodside.api.tests.advanced;
 
 
-import com.woodside.api.ApiResponse;
+import com.woodside.api.response.ApiResponse;
 import com.woodside.api.entity.User;
 import com.woodside.api.service.UserApiServiceAdvanced;
 import io.restassured.RestAssured;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,8 +15,9 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.Arrays;
 import java.util.Collection;
 
-import static com.woodside.api.Conditions.bodyField;
-import static com.woodside.api.Conditions.statusCode;
+import static com.woodside.api.condition.Conditions.bodyField;
+import static com.woodside.api.condition.Conditions.statusCode;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.hamcrest.Matchers.not;
 
@@ -50,6 +52,26 @@ public class UserApiTests {
         //Then
         response.shouldHave(statusCode(200));
         response.shouldHave(bodyField("id", not(isEmptyOrNullString())));
+
+    }
+
+    @Test
+    void testCangetCustomerbyId(){
+        User user = new User()
+                .setLastName("123123123")
+                .setFirstName("123123213")
+                .setPassword("test1")
+                .setEmail("set1")
+                .setUsername(RandomStringUtils.randomAlphanumeric(6));
+
+        String id  = userApiService.registerUser(user).getBodyField("id");
+        System.out.println(id);
+
+        ApiResponse response = userApiService.getCustomerById(id);
+
+        response.shouldHave(statusCode(200));
+
+        User userById = response.as(User.class);
 
     }
 
