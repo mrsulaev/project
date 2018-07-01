@@ -34,3 +34,4 @@ build/
 /gradle
 /ui-selenide/build
 /ui-selenide/out
+/ui-selenide/allure-results
