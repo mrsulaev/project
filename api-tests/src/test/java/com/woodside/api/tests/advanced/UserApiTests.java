@@ -1,6 +1,7 @@
 package com.woodside.api.tests.advanced;
 
 
+import com.woodside.api.TestData;
 import com.woodside.api.response.ApiResponse;
 import com.woodside.api.entity.User;
 import com.woodside.api.service.UserApiServiceAdvanced;
@@ -40,14 +41,9 @@ public class UserApiTests {
     @Test
     void testCanRegisterAsValidUser() {
         //Given
-        User user = new User()
-                .setLastName("123123123")
-                .setFirstName("123123213")
-                .setPassword("test1")
-                .setEmail("set1")
-                .setUsername("test1");
+
         //When
-        ApiResponse response = userApiService.registerUser(user);
+        ApiResponse response = userApiService.registerUser(TestData.getUserForTest());
 
         //Then
         response.shouldHave(statusCode(200));

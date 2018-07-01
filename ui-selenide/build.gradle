@@ -1,0 +1,6 @@
+dependencies {
+    compile project(":api-tests")
+    compile group: 'com.codeborne', name: 'selenide', version: '4.12.2'
+    testCompile group: 'org.testng', name: 'testng', version: '6.13'
+
+}

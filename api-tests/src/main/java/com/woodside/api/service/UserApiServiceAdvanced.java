@@ -14,6 +14,8 @@ import io.restassured.specification.RequestSpecification;
 import java.util.ArrayList;
 import java.util.List;
 
+import static io.restassured.http.ContentType.JSON;
+
 @lombok.extern.slf4j.Slf4j
 public class UserApiServiceAdvanced {
 
@@ -25,7 +27,7 @@ public class UserApiServiceAdvanced {
         filters.add(new AllureRestAssured());
 
         return RestAssured.given()
-                //.contentType(JSON)
+                .contentType(JSON)
                 .filters(filters);
     }
 

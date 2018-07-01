@@ -1,14 +1,7 @@
 plugins {
-    id 'io.franzbecker.gradle-lombok' version '1.14'
-    id 'java'
     id "io.qameta.allure" version "2.5"
 }
 
-sourceCompatibility = 1.8
-
-repositories {
-    jcenter()
-}
 
 ext {
     junitVerion = '5.2.0'

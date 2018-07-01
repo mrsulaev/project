@@ -1,11 +1,29 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "io.franzbecker:gradle-lombok:1.14"
+    }
+}
+
 plugins {
     id 'java'
 }
 
-sourceCompatibility = 1.8
+subprojects {
+    apply plugin: 'java'
+    apply plugin: "io.franzbecker.gradle-lombok"
 
-repositories {
-    jcenter()
+    sourceCompatibility = 1.8
+
+    repositories {
+        jcenter()
+    }
+
+
 }
 
 task wrapper(type: Wrapper){
