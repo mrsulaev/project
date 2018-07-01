@@ -32,6 +32,6 @@ build/
 /.allure/
 /.gradle
 /gradle
-/ui-selenide/build
-/ui-selenide/out
-/ui-selenide/allure-results
+/ui-selenide/build/
+/ui-selenide/out/
+/ui-selenide/allure-results/
