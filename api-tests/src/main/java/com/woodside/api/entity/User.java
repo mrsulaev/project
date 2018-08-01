@@ -31,4 +31,5 @@ public class User {
 
     @JsonProperty("username")
     private String username;
+
 }

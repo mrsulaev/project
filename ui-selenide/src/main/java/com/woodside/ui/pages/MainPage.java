@@ -5,6 +5,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.woodside.api.entity.User;
 import com.woodside.ui.modal.LoginModal;
 import com.woodside.ui.modal.RegisterModal;
+import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -22,6 +23,7 @@ public class MainPage {
         return Selenide.open("/", MainPage.class);
     }
 
+    @Step
     public MainPage loginUser(String userName, String password) {
         log.info("Log in as {}, {}", userName, password);
         loginLink.click();
@@ -29,7 +31,10 @@ public class MainPage {
         return this;
     }
 
+    @Step
     public MainPage registerUser(User user){
+        log.info("Log in as {}, {}", user.getEmail(), user.getUsername());
+
         registerLink.click();
         registerModal.registerAs(user);
         return this;

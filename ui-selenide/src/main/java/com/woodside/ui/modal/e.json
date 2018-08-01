@@ -1,0 +1,257 @@
+{
+  "link": {
+    "rel": "self",
+    "href": "/kapacitor/v1/tasks/monitoring_alert_279"
+  },
+  "id": "monitoring_alert_279",
+  "template-id": "",
+  "type": "stream",
+  "dbrps": [
+    {
+      "db": "alerting",
+      "rp": "onemonth"
+    }
+  ],
+  "script": "// Dataframe\nvar data_A = stream\n    |from()\n        .database('alerting')\n        .measurement('sinus_one')\n    |default()\n        .field('value', -2147483648)\n    |where(lambda: \"value\" != -2147483648)\n    |groupBy('host')\n    |window()\n        .period(30s)\n        .every(10s)\n    |mean('value')\n        .as('value')\n\n// Thresholds if data exist\ndata_A\n    |default()\n        .tag('sourceAlias', 'A')\n    |groupBy('host', 'sourceAlias')\n    |alert()\n        .warn(lambda: \"value\" \u003e 1)\n        .crit(lambda: \"value\" \u003e 1)\n        .stateChangesOnly(60s)\n        .message('{\"type\":\"alert\",\"name\":\"{{ .TaskName }}\",\"value\":\"{{ index .Fields \"value\" }}\",\"level\":\"{{ .Level }}\",\"tags\":[{\"name\":\"host\",\"value\":\"{{ index .Tags \"host\" }}\"},{\"name\":\"sourceAlias\",\"value\":\"{{ index .Tags \"sourceAlias\" }}\"}],\"time\":\"{{ .Time }}\"}')\n        .post('http://monitor-dev.mobbtech.com/alerts-api/')\n\n// Dataframe\nvar data_C = stream\n    |from()\n        .database('alerting')\n        .measurement('sinus_three')\n    |default()\n        .field('value', -2147483648)\n    |where(lambda: \"value\" != -2147483648)\n    |groupBy('host')\n    |window()\n        .period(30s)\n        .every(10s)\n    |mean('value')\n        .as('value')\n\n// Thresholds if data exist\ndata_C\n    |default()\n        .tag('sourceAlias', 'C')\n    |groupBy('host', 'sourceAlias')\n    |alert()\n        .warn(lambda: \"value\" \u003e 1)\n        .crit(lambda: \"value\" \u003e 1)\n        .stateChangesOnly(60s)\n        .message('{\"type\":\"alert\",\"name\":\"{{ .TaskName }}\",\"value\":\"{{ index .Fields \"value\" }}\",\"level\":\"{{ .Level }}\",\"tags\":[{\"name\":\"host\",\"value\":\"{{ index .Tags \"host\" }}\"},{\"name\":\"sourceAlias\",\"value\":\"{{ index .Tags \"sourceAlias\" }}\"}],\"time\":\"{{ .Time }}\"}')\n        .post('http://monitor-dev.mobbtech.com/alerts-api/')\n\n// Dataframe\nvar data_B = stream\n    |from()\n        .database('alerting')\n        .measurement('sinus_one')\n    |default()\n        .field('value', -2147483648)\n    |where(lambda: \"value\" != -2147483648)\n    |groupBy('host')\n    |window()\n        .period(30s)\n        .every(10s)\n    |mean('value')\n        .as('value')\n\n// Thresholds if data exist\ndata_B\n    |default()\n        .tag('sourceAlias', 'B')\n    |groupBy('host', 'sourceAlias')\n    |alert()\n        .warn(lambda: \"value\" \u003e 1)\n        .crit(lambda: \"value\" \u003e 1)\n        .stateChangesOnly(60s)\n        .message('{\"type\":\"alert\",\"name\":\"{{ .TaskName }}\",\"value\":\"{{ index .Fields \"value\" }}\",\"level\":\"{{ .Level }}\",\"tags\":[{\"name\":\"host\",\"value\":\"{{ index .Tags \"host\" }}\"},{\"name\":\"sourceAlias\",\"value\":\"{{ index .Tags \"sourceAlias\" }}\"}],\"time\":\"{{ .Time }}\"}')\n        .post('http://monitor-dev.mobbtech.com/alerts-api/')\n",
+  "vars": {},
+  "dot": "digraph monitoring_alert_279 {\ngraph [throughput=\"0.00 points/s\"];\n\nstream0 [avg_exec_time_ns=\"0s\" errors=\"0\" working_cardinality=\"0\" ];\nstream0 -\u003e from19 [processed=\"3472\"];\nstream0 -\u003e from10 [processed=\"3472\"];\nstream0 -\u003e from1 [processed=\"3472\"];\n\nfrom19 [avg_exec_time_ns=\"407ns\" errors=\"0\" working_cardinality=\"0\" ];\nfrom19 -\u003e default20 [processed=\"868\"];\n\ndefault20 [avg_exec_time_ns=\"3.964µs\" errors=\"0\" fields_defaulted=\"0\" tags_defaulted=\"0\" working_cardinality=\"0\" ];\ndefault20 -\u003e where21 [processed=\"868\"];\n\nwhere21 [avg_exec_time_ns=\"38.69µs\" errors=\"0\" working_cardinality=\"1\" ];\nwhere21 -\u003e groupby22 [processed=\"868\"];\n\ngroupby22 [avg_exec_time_ns=\"1.709µs\" errors=\"0\" working_cardinality=\"0\" ];\ngroupby22 -\u003e window23 [processed=\"868\"];\n\nwindow23 [avg_exec_time_ns=\"4.321µs\" errors=\"0\" working_cardinality=\"1\" ];\nwindow23 -\u003e mean24 [processed=\"690\"];\n\nmean24 [avg_exec_time_ns=\"3.396µs\" errors=\"0\" working_cardinality=\"1\" ];\nmean24 -\u003e default25 [processed=\"690\"];\n\ndefault25 [avg_exec_time_ns=\"5.746µs\" errors=\"0\" fields_defaulted=\"0\" tags_defaulted=\"690\" working_cardinality=\"0\" ];\ndefault25 -\u003e groupby26 [processed=\"690\"];\n\ngroupby26 [avg_exec_time_ns=\"1.679µs\" errors=\"0\" working_cardinality=\"0\" ];\ngroupby26 -\u003e alert27 [processed=\"690\"];\n\nalert27 [alerts_inhibited=\"0\" alerts_triggered=\"140\" avg_exec_time_ns=\"218.136093ms\" crits_triggered=\"140\" errors=\"0\" infos_triggered=\"0\" oks_triggered=\"0\" warns_triggered=\"0\" working_cardinality=\"1\" ];\n\nfrom10 [avg_exec_time_ns=\"624ns\" errors=\"0\" working_cardinality=\"0\" ];\nfrom10 -\u003e default11 [processed=\"2604\"];\n\ndefault11 [avg_exec_time_ns=\"1.079µs\" errors=\"0\" fields_defaulted=\"0\" tags_defaulted=\"0\" working_cardinality=\"0\" ];\ndefault11 -\u003e where12 [processed=\"2604\"];\n\nwhere12 [avg_exec_time_ns=\"18.564µs\" errors=\"0\" working_cardinality=\"1\" ];\nwhere12 -\u003e groupby13 [processed=\"2604\"];\n\ngroupby13 [avg_exec_time_ns=\"711ns\" errors=\"0\" working_cardinality=\"0\" ];\ngroupby13 -\u003e window14 [processed=\"2604\"];\n\nwindow14 [avg_exec_time_ns=\"3.571µs\" errors=\"0\" working_cardinality=\"3\" ];\nwindow14 -\u003e mean15 [processed=\"2070\"];\n\nmean15 [avg_exec_time_ns=\"1.696µs\" errors=\"0\" working_cardinality=\"3\" ];\nmean15 -\u003e default16 [processed=\"2070\"];\n\ndefault16 [avg_exec_time_ns=\"2.685µs\" errors=\"0\" fields_defaulted=\"0\" tags_defaulted=\"2070\" working_cardinality=\"0\" ];\ndefault16 -\u003e groupby17 [processed=\"2070\"];\n\ngroupby17 [avg_exec_time_ns=\"780ns\" errors=\"0\" working_cardinality=\"0\" ];\ngroupby17 -\u003e alert18 [processed=\"2070\"];\n\nalert18 [alerts_inhibited=\"0\" alerts_triggered=\"420\" avg_exec_time_ns=\"188.846838ms\" crits_triggered=\"372\" errors=\"0\" infos_triggered=\"0\" oks_triggered=\"48\" warns_triggered=\"0\" working_cardinality=\"3\" ];\n\nfrom1 [avg_exec_time_ns=\"661ns\" errors=\"0\" working_cardinality=\"0\" ];\nfrom1 -\u003e default2 [processed=\"868\"];\n\ndefault2 [avg_exec_time_ns=\"2.068µs\" errors=\"0\" fields_defaulted=\"0\" tags_defaulted=\"0\" working_cardinality=\"0\" ];\ndefault2 -\u003e where3 [processed=\"868\"];\n\nwhere3 [avg_exec_time_ns=\"37.031µs\" errors=\"0\" working_cardinality=\"1\" ];\nwhere3 -\u003e groupby4 [processed=\"868\"];\n\ngroupby4 [avg_exec_time_ns=\"1.335µs\" errors=\"0\" working_cardinality=\"0\" ];\ngroupby4 -\u003e window5 [processed=\"868\"];\n\nwindow5 [avg_exec_time_ns=\"5.215µs\" errors=\"0\" working_cardinality=\"1\" ];\nwindow5 -\u003e mean6 [processed=\"690\"];\n\nmean6 [avg_exec_time_ns=\"2.518µs\" errors=\"0\" working_cardinality=\"1\" ];\nmean6 -\u003e default7 [processed=\"690\"];\n\ndefault7 [avg_exec_time_ns=\"3.13µs\" errors=\"0\" fields_defaulted=\"0\" tags_defaulted=\"690\" working_cardinality=\"0\" ];\ndefault7 -\u003e groupby8 [processed=\"690\"];\n\ngroupby8 [avg_exec_time_ns=\"1.204µs\" errors=\"0\" working_cardinality=\"0\" ];\ngroupby8 -\u003e alert9 [processed=\"690\"];\n\nalert9 [alerts_inhibited=\"0\" alerts_triggered=\"140\" avg_exec_time_ns=\"93.973796ms\" crits_triggered=\"140\" errors=\"0\" infos_triggered=\"0\" oks_triggered=\"0\" warns_triggered=\"0\" working_cardinality=\"1\" ];\n}",
+  "status": "enabled",
+  "executing": true,
+  "error": "",
+  "stats": {
+    "task-stats": {
+      "throughput": 0
+    },
+    "node-stats": {
+      "alert18": {
+        "alerts_inhibited": 0,
+        "alerts_triggered": 420,
+        "avg_exec_time_ns": 188846838,
+        "collected": 2070,
+        "crits_triggered": 372,
+        "emitted": 0,
+        "errors": 0,
+        "infos_triggered": 0,
+        "oks_triggered": 48,
+        "warns_triggered": 0,
+        "working_cardinality": 3
+      },
+      "alert27": {
+        "alerts_inhibited": 0,
+        "alerts_triggered": 140,
+        "avg_exec_time_ns": 218136093,
+        "collected": 690,
+        "crits_triggered": 140,
+        "emitted": 0,
+        "errors": 0,
+        "infos_triggered": 0,
+        "oks_triggered": 0,
+        "warns_triggered": 0,
+        "working_cardinality": 1
+      },
+      "alert9": {
+        "alerts_inhibited": 0,
+        "alerts_triggered": 140,
+        "avg_exec_time_ns": 93973796,
+        "collected": 690,
+        "crits_triggered": 140,
+        "emitted": 0,
+        "errors": 0,
+        "infos_triggered": 0,
+        "oks_triggered": 0,
+        "warns_triggered": 0,
+        "working_cardinality": 1
+      },
+      "default11": {
+        "avg_exec_time_ns": 1079,
+        "collected": 2604,
+        "emitted": 2604,
+        "errors": 0,
+        "fields_defaulted": 0,
+        "tags_defaulted": 0,
+        "working_cardinality": 0
+      },
+      "default16": {
+        "avg_exec_time_ns": 2685,
+        "collected": 2070,
+        "emitted": 2070,
+        "errors": 0,
+        "fields_defaulted": 0,
+        "tags_defaulted": 2070,
+        "working_cardinality": 0
+      },
+      "default2": {
+        "avg_exec_time_ns": 2068,
+        "collected": 868,
+        "emitted": 868,
+        "errors": 0,
+        "fields_defaulted": 0,
+        "tags_defaulted": 0,
+        "working_cardinality": 0
+      },
+      "default20": {
+        "avg_exec_time_ns": 3964,
+        "collected": 868,
+        "emitted": 868,
+        "errors": 0,
+        "fields_defaulted": 0,
+        "tags_defaulted": 0,
+        "working_cardinality": 0
+      },
+      "default25": {
+        "avg_exec_time_ns": 5746,
+        "collected": 690,
+        "emitted": 690,
+        "errors": 0,
+        "fields_defaulted": 0,
+        "tags_defaulted": 690,
+        "working_cardinality": 0
+      },
+      "default7": {
+        "avg_exec_time_ns": 3130,
+        "collected": 690,
+        "emitted": 690,
+        "errors": 0,
+        "fields_defaulted": 0,
+        "tags_defaulted": 690,
+        "working_cardinality": 0
+      },
+      "from1": {
+        "avg_exec_time_ns": 661,
+        "collected": 3472,
+        "emitted": 868,
+        "errors": 0,
+        "working_cardinality": 0
+      },
+      "from10": {
+        "avg_exec_time_ns": 624,
+        "collected": 3472,
+        "emitted": 2604,
+        "errors": 0,
+        "working_cardinality": 0
+      },
+      "from19": {
+        "avg_exec_time_ns": 407,
+        "collected": 3472,
+        "emitted": 868,
+        "errors": 0,
+        "working_cardinality": 0
+      },
+      "groupby13": {
+        "avg_exec_time_ns": 711,
+        "collected": 2604,
+        "emitted": 2604,
+        "errors": 0,
+        "working_cardinality": 0
+      },
+      "groupby17": {
+        "avg_exec_time_ns": 780,
+        "collected": 2070,
+        "emitted": 2070,
+        "errors": 0,
+        "working_cardinality": 0
+      },
+      "groupby22": {
+        "avg_exec_time_ns": 1709,
+        "collected": 868,
+        "emitted": 868,
+        "errors": 0,
+        "working_cardinality": 0
+      },
+      "groupby26": {
+        "avg_exec_time_ns": 1679,
+        "collected": 690,
+        "emitted": 690,
+        "errors": 0,
+        "working_cardinality": 0
+      },
+      "groupby4": {
+        "avg_exec_time_ns": 1335,
+        "collected": 868,
+        "emitted": 868,
+        "errors": 0,
+        "working_cardinality": 0
+      },
+      "groupby8": {
+        "avg_exec_time_ns": 1204,
+        "collected": 690,
+        "emitted": 690,
+        "errors": 0,
+        "working_cardinality": 0
+      },
+      "mean15": {
+        "avg_exec_time_ns": 1696,
+        "collected": 2070,
+        "emitted": 2070,
+        "errors": 0,
+        "working_cardinality": 3
+      },
+      "mean24": {
+        "avg_exec_time_ns": 3396,
+        "collected": 690,
+        "emitted": 690,
+        "errors": 0,
+        "working_cardinality": 1
+      },
+      "mean6": {
+        "avg_exec_time_ns": 2518,
+        "collected": 690,
+        "emitted": 690,
+        "errors": 0,
+        "working_cardinality": 1
+      },
+      "stream0": {
+        "avg_exec_time_ns": 0,
+        "collected": 3472,
+        "emitted": 10416,
+        "errors": 0,
+        "working_cardinality": 0
+      },
+      "where12": {
+        "avg_exec_time_ns": 18564,
+        "collected": 2604,
+        "emitted": 2604,
+        "errors": 0,
+        "working_cardinality": 1
+      },
+      "where21": {
+        "avg_exec_time_ns": 38690,
+        "collected": 868,
+        "emitted": 868,
+        "errors": 0,
+        "working_cardinality": 1
+      },
+      "where3": {
+        "avg_exec_time_ns": 37031,
+        "collected": 868,
+        "emitted": 868,
+        "errors": 0,
+        "working_cardinality": 1
+      },
+      "window14": {
+        "avg_exec_time_ns": 3571,
+        "collected": 2604,
+        "emitted": 2070,
+        "errors": 0,
+        "working_cardinality": 3
+      },
+      "window23": {
+        "avg_exec_time_ns": 4321,
+        "collected": 868,
+        "emitted": 690,
+        "errors": 0,
+        "working_cardinality": 1
+      },
+      "window5": {
+        "avg_exec_time_ns": 5215,
+        "collected": 868,
+        "emitted": 690,
+        "errors": 0,
+        "working_cardinality": 1
+      }
+    }
+  },
+  "created": "2018-07-31T08:19:07.022647266Z",
+  "modified": "2018-07-31T08:19:07.022647266Z",
+  "last-enabled": "2018-07-31T08:19:07.022647266Z"
+}
